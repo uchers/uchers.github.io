@@ -1,0 +1,239 @@
+openapi: 3.0.3
+info: 
+  title: Product Subs Demo
+  description: OpenAPI spec for Product Subs Demo
+  termsOfService: https://productsubsdemo.com/terms
+  contact:
+    name: API Support
+    url: https://productsubsdemo.com/support
+    email: support@productsubsdemo.com
+  license:
+    name: Product Subs Demo License
+    url: https://productsubsdemo.com/license.html
+  version: 0.0.1
+servers:
+  - url: https://development.productsubsdemo.com/v1
+    description: Development server
+  - url: https://staging.productsubsdemo.com/v1
+    description: Staging server
+  - url: https://api.productsubsdemo.com/v1
+    description: Production server
+paths:
+  /productsubs:
+    get:
+      summary: Lists product substitutions for a product & supports query parameters
+      description: Returns the list of product substitutions for the product ID given by the user
+      parameters:
+        - name: ProductId
+          in: query
+          schema:
+            type: string
+          required: true
+          example: ins43275
+      responses:
+        '200':
+          description: Lists product substitutions for a product
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    productId:
+                      type: string
+                    name:
+                      type: string
+  /productsubs/{productId}:
+    get:
+      summary: Lists product substitutions & supports path parameters
+      description: Returns the list of product substitutions
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: ins43275
+      responses:
+        '200':
+          description: Lists product substitutions for a product
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productsubsId:
+                    type: string
+                  name:
+                    type: string
+  /storeId:
+    get: 
+      summary: List all products for a store
+      description: Returns list of products and product details in the grocery store & supports query parameters
+      parameters:
+        - name: storeId
+          in: query
+          schema:
+            type: string
+          example: instacart_store1
+      responses:
+        '200':
+          description: Returns list of products and product details in the grocery store & supports query parameters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    productId:
+                      type: string
+                    title:
+                      type: string
+                    categories: 
+                      type: string
+                    imageUrl:
+                      type: string
+  /storeId/{storeId}:
+    get: 
+      summary: List all products for a store
+      description: Returns list of products and product details in the grocery store & supports path parameters
+      parameters:
+        - name: storeId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: instacart_store1
+      responses:
+        '200':
+          description: Returns list of products and product details in the grocery store & supports path parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+                  title:
+                    type: string
+                  categories: 
+                    type: string
+                  imageUrl:
+                    type: string
+  /newProducts:
+    post:
+      summary: Create product
+      description: Post product details to grocery store
+      requestBody:
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productID:
+                          type: string
+                        title:
+                          type: string
+                        categories: 
+                          type: string
+                        imageUrl:
+                          type: string
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+    put:
+      summary: Update product
+      description: Update product details in grocery store
+      requestBody:
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productID:
+                          type: string
+                        title:
+                          type: string
+                        categories: 
+                          type: string
+                        imageUrl:
+                          type: string
+      responses:
+        '200':
+          description: Product details updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+    delete:
+      summary: Delete product
+      description: Delete product details in grocery store
+      parameters:
+        - name: productID
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Product details deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productId:
+                    type: string
+    get:
+      summary: Get product details
+      description: Get product details from grocery store
+      parameters:
+        - name: productID
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product details fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productID:
+                          type: string
+                        title:
+                          type: string
+                        categories: 
+                          type: string
+                        imageUrl:
+                          type: string
+                    
